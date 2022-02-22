@@ -1,0 +1,8 @@
+menu "LSM303C"
+
+config LSM303C_TIMEOUT
+    int "Measurement timeout, microseconds"
+    default 6000
+    range 500 10000
+
+endmenu
