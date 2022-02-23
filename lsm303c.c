@@ -8,48 +8,7 @@ MagnetData mRaw = {
         .max = {INT16_MIN, INT16_MIN, INT16_MIN}
 };
 
-esp_err_t lsm303c_init(gpio_num_t sda, gpio_num_t scl, i2c_port_t num)
-{
-    uint8_t data;
-    lsm303c_dev.cfg.scl_io_num = scl;
-    lsm303c_dev.cfg.sda_io_num = sda;
-    lsm303c_dev.port = num;
-    // I2C init.
-    ESP_ERROR_CHECK(i2c_param_config(lsm303c_dev.port, &lsm303c_dev.cfg));
 
-    ESP_ERROR_CHECK(i2cdev_init());
-
-    ESP_ERROR_CHECK(a_readRegs(ACC_WHO_AM_I, &data, 1));
-    if (data != LSM303C_WHO_I_AM_A)
-        ESP_LOGE(tag, "incorrect 'who i a`m' of accel");
-
-    ESP_ERROR_CHECK(m_readRegs(MAG_WHO_AM_I, &data, 1));
-    if (data != LSM303C_WHO_I_AM_M)
-        ESP_LOGE(tag, "incorrect 'who i a`m' of magnet");
-
-    return ESP_OK;
-}
-
-esp_err_t lsm303c_config_m(
-        MAG_DO_t dataRate,
-        MAG_OMXY_t omxy,
-        MAG_TEMP_EN_t tempEn,
-        MAG_FS_t fs,
-        MAG_MD_t mode,
-        MAG_OMZ_t omz,
-        MAG_BDU_t bdu
-)
-{
-    uint8_t data[] = {
-            tempEn | omxy | dataRate,
-            fs,
-            mode,
-            omz,
-            bdu
-    };
-
-    return m_writeRegs(MAG_CTRL_REG1, data, 5);
-}
 
 bool lsm303c_mDataReady()
 {

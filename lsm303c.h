@@ -14,7 +14,19 @@
  */
 esp_err_t lsm303c_init();
 
-esp_err_t lsm303c_config_m(
+/**
+ * @brief Initialization of magnetometer.\n
+ * The function initializes magnetometer with following parameters.
+ * @param dataRate Output data rate selection.
+ * @param omxy X and Y axes operative mode selection.
+ * @param tempEn Temperature sensor enable.
+ * @param fs Full-scale configuration.
+ * @param mode Operating mode selection.
+ * @param omz Z-axis operative mode selection.
+ * @param bdu Block data update for magnetic data.
+ * @return status of data sending.
+ */
+esp_err_t lsm303c_m_config(
         MAG_DO_t dataRate,
         MAG_OMXY_t omxy,
         MAG_TEMP_EN_t tempEn,
@@ -23,6 +35,13 @@ esp_err_t lsm303c_config_m(
         MAG_OMZ_t omz,
         MAG_BDU_t bdu
 );
+/**
+ * The function for enabling or disabling self-test.
+ *
+ * @param en self-test state.
+ * @return status of sending data.
+ */
+esp_err_t lsm303c_m_selfTest(MAG_ST_t en);
 
 float lsm303c_getMagneticField();
 
@@ -36,6 +55,5 @@ MagnetData lsm303c_getData_m();
 
 bool lsm303c_mDataReady();
 
-esp_err_t lsm303c_selfTest_m(bool en);
 
 #endif
