@@ -2,7 +2,7 @@
 #include <math.h>
 #include "lsm303c_if.h"
 
-char *tag = "lsm303c";
+const char *tag = "lsm303c";
 MagnetData mRaw = {
         .min = {INT16_MAX, INT16_MAX, INT16_MAX},
         .max = {INT16_MIN, INT16_MIN, INT16_MIN}

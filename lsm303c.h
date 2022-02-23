@@ -6,7 +6,13 @@
 #include "driver/i2c.h"
 #include "lsm303c_types.h"
 
-esp_err_t lsm303c_init(gpio_num_t sda, gpio_num_t scl, i2c_port_t num);
+/**
+ * The function initialize i2c device for lsm303c.\n
+ * It uses ESP_ERROR_CHECK() and can to cause esp aboard.\n
+ * @note I2C configuration can be changed in menu configuration.
+ * @return ESP_OK, if nothing wasn't interrupt it.
+ */
+esp_err_t lsm303c_init();
 
 esp_err_t lsm303c_config_m(
         MAG_DO_t dataRate,

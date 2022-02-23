@@ -1,8 +1,31 @@
 menu "LSM303C"
 
-config LSM303C_TIMEOUT
-    int "Measurement timeout, microseconds"
-    default 6000
-    range 500 10000
+config LSM303C_I2C_CLK_SPEED
+    int "I2C clock speed"
+    default 400000
+    range 10000 400000
+
+config LSM303C_I2C_NUM
+    int "i2c num"
+    default 0
+    range 0 1
+
+config LSM303C_I2C_CLK_GPIO
+    int "i2c clk gpio num"
+    default 18
+    range 0 39
+
+config LSM303C_I2C_SDA_GPIO
+    int "i2c sda gpio num"
+    default 18
+    range 0 39
+
+config LSM303C_I2C_CLK_PULL_UP
+    bool "i2c clk pin pull up enable"
+    default y
+
+config LSM303C_I2C_SDA_PULL_UP
+    bool "i2c sda pin pull up enable"
+    default y
 
 endmenu

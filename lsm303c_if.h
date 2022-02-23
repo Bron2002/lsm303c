@@ -7,16 +7,16 @@
 #include "lsm303c_types.h"
 #include "i2cdev.h"
 
-i2c_dev_t lsm303c_dev = {
-        .port = 0,
-        .cfg = {
-                .mode = I2C_MODE_MASTER,
-                .scl_pullup_en = true,
-                .sda_pullup_en = true,
-                .master.clk_speed = 400000,
-                .clk_flags = 0
-        }
-};
+// Set standard config, if it not exists.
+#ifndef CONFIG_LSM303C_I2C_CLK_SPEED
+#define CONFIG_LSM303C_I2C_CLK_SPEED 400000
+#define CONFIG_LSM303C_I2C_CLK_PULL_UP 1
+#define CONFIG_LSM303C_I2C_SDA_PULL_UP 1
+#endif
+
+extern const i2c_dev_t lsm303c_a;
+extern const i2c_dev_t lsm303c_m;
+extern const char *tag;
 
 static inline esp_err_t m_readRegs(MAG_REG_t startReg, void *data, uint8_t size)
 {
