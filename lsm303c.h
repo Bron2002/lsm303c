@@ -36,12 +36,19 @@ esp_err_t lsm303c_m_config(
         MAG_BDU_t bdu
 );
 /**
- * The function for enabling or disabling self-test.
+ * The function for enabling control bit.
  *
- * @param en self-test state.
+ * @param cb control bit typedef (it contains mask and address of register).
  * @return status of sending data.
  */
-esp_err_t lsm303c_m_selfTest(MAG_ST_t en);
+esp_err_t lsm303c_m_set(MAG_ConfBit cb);
+/**
+ * The function for disabling control bit.
+ *
+ * @param cb control bit typedef (it contains mask and address of register).
+ * @return status of sending data.
+ */
+esp_err_t lsm303c_m_reset(MAG_ConfBit cb);
 
 float lsm303c_getMagneticField();
 

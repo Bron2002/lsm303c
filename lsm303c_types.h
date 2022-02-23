@@ -83,12 +83,6 @@ typedef enum
 
 typedef enum
 {
-    MAG_ST_DIS = 0x00,
-    MAG_ST_EN = 0x01
-} MAG_ST_t;
-
-typedef enum
-{
     MAG_DO_0_625_Hz = 0x00,
     MAG_DO_1_25_Hz = 0x04,
     MAG_DO_2_5_Hz = 0x08,
@@ -153,6 +147,19 @@ typedef enum
     yAxis,
     zAxis
 } AXIS_t;
+
+typedef enum
+{
+    MAG_SelfTest = (MAG_CTRL_REG1 << 8) | 0x01,
+    MAG_TemperatureSensor = (MAG_CTRL_REG1 << 8) | 0x80,
+
+    MAG_RebootMem = (MAG_CTRL_REG2 << 8) | 0x08,
+    MAG_SoftReset = (MAG_CTRL_REG2 << 8) | 0x04,
+
+    MAG_SpiReadEnable = (MAG_CTRL_REG3 << 8) | 0x04,
+    MAG_LowPowerEnable = (MAG_CTRL_REG3 << 8) | 0x20,
+    MAG_DisableI2C = (MAG_CTRL_REG3 << 8) | 0x80
+} MAG_ConfBit;
 
 typedef enum
 {

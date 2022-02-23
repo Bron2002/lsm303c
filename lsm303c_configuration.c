@@ -37,6 +37,7 @@ esp_err_t lsm303c_m_config(
         MAG_BDU_t bdu
 )
 {
+    // Assembling of config message.
     uint8_t data[] = {
             tempEn | omxy | dataRate,
             fs,
@@ -44,17 +45,26 @@ esp_err_t lsm303c_m_config(
             omz,
             bdu
     };
-
+    // Send config message and return status of it.
     return i2c_dev_write_reg(&lsm303c_m, MAG_CTRL_REG1, data, sizeof(data));
 }
 
-esp_err_t lsm303c_m_selfTest(MAG_ST_t st)
+esp_err_t lsm303c_m_set(MAG_ConfBit cb)
 {
-    uint8_t data;
+    uint8_t data, reg = cb >> 8;
     esp_err_t err;
-    if ((err = i2c_dev_read_reg(&lsm303c_m, MAG_CTRL_REG1, &data, 1)) != ESP_OK)
+    if ((err = i2c_dev_read_reg(&lsm303c_m, reg, &data, 1)) != ESP_OK)
         return err;
-    data &= ~MAG_ST_EN;
-    data |= st;
-    return i2c_dev_write_reg(&lsm303c_m, MAG_CTRL_REG1, &data, 1);
+    data |= (uint8_t)cb;
+    return i2c_dev_write_reg(&lsm303c_m, reg, &data, 1);
+}
+
+esp_err_t lsm303c_m_reset(MAG_ConfBit cb)
+{
+    uint8_t data, reg = cb >> 8;
+    esp_err_t err;
+    if ((err = i2c_dev_read_reg(&lsm303c_m, reg, &data, 1)) != ESP_OK)
+        return err;
+    data &= ~(uint8_t)cb;
+    return i2c_dev_write_reg(&lsm303c_m, reg, &data, 1);
 }
